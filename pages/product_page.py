@@ -18,7 +18,7 @@ class ProductPage(BasePage):
         answer = str(math.log(abs((12 * math.sin(float(x))))))
         alert.send_keys(answer)
         alert.accept()
-        time.sleep(2)
+        time.sleep(20000)
         try:
             alert = self.browser.switch_to.alert
             alert_text = alert.text
@@ -30,6 +30,16 @@ class ProductPage(BasePage):
     def get_name_of_product(self):
         product_name_link = self.browser.find_element(*ProductPageLocators.NAME_OF_PRODUCT)
         assert "Coders at Work" == product_name_link.text, "error"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.MESSAGE_PRODUCT_IN_CART), \
+            "Success message is presented, but should not be"
+
+    def should_be_dissapered_message(self):
+        assert self.is_disappeared(*ProductPageLocators.MESSAGE_PRODUCT_IN_CART), \
+            "Success message is dissapered, but should not be"
+
+
 
 
 
